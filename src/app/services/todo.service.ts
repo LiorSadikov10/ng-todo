@@ -48,6 +48,17 @@ export class TodoService {
     const exitistingTodos: Array<ITodo> = this._todoSubject.value;
     exitistingTodos.push(newTodo);
     this._todoSubject.next(exitistingTodos);
-    localStorage.setItem("todos", JSON.stringify(exitistingTodos))
+    localStorage.setItem('todos', JSON.stringify(exitistingTodos))
+  }
+
+  public onTodoAction(todoId: string, action: string):void{
+    const exitistingTodos: Array<ITodo> = this._todoSubject.value;
+
+    const todoIndex = exitistingTodos.findIndex(
+      (singleTodo) => singleTodo.id = todoId
+    );
+    exitistingTodos[todoIndex][action] = true;
+    this._todoSubject.next(exitistingTodos);
+    localStorage.setItem('todos', JSON.stringify(exitistingTodos));
   }
 }
